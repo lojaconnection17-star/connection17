@@ -1,0 +1,1661 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Connection17 - Crie sua Loja Virtual</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #2c3e50;
+        --secondary: #3498db;
+        --accent: #e74c3c;
+        --light: #ecf0f1;
+        --dark: #2c3e50;
+        --success: #2ecc71;
+        --warning: #f39c12;
+        --text: #333;
+        --text-light: #fff;
+        --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        --radius: 8px;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background-color: #f5f7fa;
+        color: var(--text);
+        line-height: 1.6;
+      }
+
+      .container {
+        width: 90%;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      header {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: var(--text-light);
+        padding: 1rem 0;
+        box-shadow: var(--shadow);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      .header-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        font-size: 1.8rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+      }
+
+      .logo i {
+        margin-right: 10px;
+        font-size: 2rem;
+      }
+
+      .btn {
+        display: inline-block;
+        background-color: var(--accent);
+        color: var(--text-light);
+        padding: 0.8rem 1.5rem;
+        border-radius: 30px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+        margin: 0.5rem;
+      }
+
+      .btn:hover {
+        background-color: #c0392b;
+        transform: translateY(-3px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      .btn-secondary {
+        background-color: var(--secondary);
+      }
+
+      .btn-secondary:hover {
+        background-color: #2980b9;
+      }
+
+      .btn-success {
+        background-color: var(--success);
+      }
+
+      .btn-success:hover {
+        background-color: #27ae60;
+      }
+
+      .btn:disabled {
+        background-color: #95a5a6;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      /* Hero Section */
+      .hero {
+        background: linear-gradient(
+            rgba(44, 62, 80, 0.9),
+            rgba(52, 152, 219, 0.9)
+          ),
+          url("https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80")
+            no-repeat center center/cover;
+        color: var(--text-light);
+        padding: 5rem 0;
+        text-align: center;
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+        margin-bottom: 1rem;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        max-width: 700px;
+        margin: 0 auto 2rem;
+      }
+
+      /* Builder Section */
+      .builder {
+        padding: 4rem 0;
+      }
+
+      .builder-container {
+        display: grid;
+        grid-template-columns: 300px 1fr;
+        gap: 2rem;
+      }
+
+      .builder-sidebar {
+        background: white;
+        border-radius: var(--radius);
+        padding: 1.5rem;
+        box-shadow: var(--shadow);
+        height: fit-content;
+      }
+
+      .builder-tabs {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .builder-tab {
+        padding: 1rem;
+        background: var(--light);
+        border-radius: var(--radius);
+        cursor: pointer;
+        transition: all 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .builder-tab.active {
+        background: var(--secondary);
+        color: white;
+      }
+
+      .builder-tab:hover:not(.active) {
+        background: #d6dbdf;
+      }
+
+      .builder-content {
+        background: white;
+        border-radius: var(--radius);
+        padding: 2rem;
+        box-shadow: var(--shadow);
+        min-height: 600px;
+      }
+
+      .tab-pane {
+        display: none;
+      }
+
+      .tab-pane.active {
+        display: block;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: 500;
+      }
+
+      .form-control {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        border: 1px solid #ddd;
+        border-radius: var(--radius);
+        font-size: 1rem;
+        transition: border-color 0.3s;
+      }
+
+      .form-control:focus {
+        border-color: var(--secondary);
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+      }
+
+      .color-picker {
+        display: flex;
+        gap: 10px;
+        margin-top: 0.5rem;
+      }
+
+      .color-option {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        cursor: pointer;
+        border: 2px solid transparent;
+      }
+
+      .color-option.active {
+        border-color: var(--dark);
+      }
+
+      .preview-container {
+        border: 2px dashed #ddd;
+        border-radius: var(--radius);
+        padding: 2rem;
+        text-align: center;
+        min-height: 400px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .preview-header {
+        width: 100%;
+        padding: 1rem;
+        border-radius: var(--radius);
+        margin-bottom: 2rem;
+        text-align: center;
+      }
+
+      .preview-products {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+        width: 100%;
+      }
+
+      .preview-product {
+        background: white;
+        border-radius: var(--radius);
+        padding: 1rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+
+      .preview-product img {
+        max-width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: var(--radius);
+        margin-bottom: 0.5rem;
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .product-card {
+        background: white;
+        border-radius: var(--radius);
+        padding: 1rem;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        transition: transform 0.3s;
+      }
+
+      .product-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .product-card img {
+        max-width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: var(--radius);
+        margin-bottom: 0.5rem;
+      }
+
+      .product-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+      }
+
+      .action-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        color: var(--text);
+        transition: color 0.3s;
+      }
+
+      .action-btn:hover {
+        color: var(--accent);
+      }
+
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: var(--radius);
+        padding: 2rem;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: var(--shadow);
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .close-modal {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--text);
+      }
+
+      .progress-bar {
+        height: 8px;
+        background: var(--light);
+        border-radius: 4px;
+        margin: 2rem 0;
+        overflow: hidden;
+      }
+
+      .progress {
+        height: 100%;
+        background: var(--success);
+        border-radius: 4px;
+        transition: width 0.5s;
+      }
+
+      .step {
+        display: none;
+      }
+
+      .step.active {
+        display: block;
+      }
+
+      .step-actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+      }
+
+      .publish-success {
+        text-align: center;
+        padding: 2rem;
+      }
+
+      .publish-success i {
+        font-size: 4rem;
+        color: var(--success);
+        margin-bottom: 1rem;
+      }
+
+      .validation-error {
+        color: var(--accent);
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        display: none;
+      }
+
+      .validation-error.show {
+        display: block;
+      }
+
+      .form-group.error .form-control {
+        border-color: var(--accent);
+      }
+
+      .save-status {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: var(--success);
+        color: white;
+        padding: 0.8rem 1.5rem;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        display: none;
+        z-index: 1000;
+      }
+
+      .save-status.show {
+        display: block;
+      }
+
+      .save-status.error {
+        background: var(--accent);
+      }
+
+      .image-upload {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .image-preview {
+        width: 150px;
+        height: 150px;
+        border: 2px dashed #ddd;
+        border-radius: var(--radius);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .image-preview img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+      }
+
+      /* Footer */
+      footer {
+        background-color: var(--dark);
+        color: var(--text-light);
+        padding: 3rem 0 1.5rem;
+        margin-top: 4rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer-column h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1.5rem;
+        position: relative;
+        padding-bottom: 0.5rem;
+      }
+
+      .footer-column h3::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 50px;
+        height: 2px;
+        background-color: var(--accent);
+      }
+
+      .footer-column p,
+      .footer-column a {
+        color: #bbb;
+        margin-bottom: 0.8rem;
+        display: block;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer-column a:hover {
+        color: var(--accent);
+      }
+
+      .copyright {
+        text-align: center;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        color: #bbb;
+        font-size: 0.9rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .builder-container {
+          grid-template-columns: 1fr;
+        }
+
+        .builder-sidebar {
+          order: 2;
+        }
+
+        .builder-content {
+          order: 1;
+        }
+
+        .hero h1 {
+          font-size: 2.2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <div class="container">
+        <div class="header-content">
+          <div class="logo">
+            <i class="fas fa-link"></i>
+            <span>Connection17</span>
+          </div>
+          <a href="#publish" class="btn" id="publishBtn">Publicar Loja</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <h1>Crie sua Loja Virtual em Minutos</h1>
+        <p>
+          Monte sua própria loja online sem precisar de conhecimentos técnicos.
+          Personalize cada detalhe e comece a vender!
+        </p>
+        <a href="#builder" class="btn btn-secondary">Começar Agora</a>
+      </div>
+    </section>
+
+    <!-- Builder Section -->
+    <section class="builder" id="builder">
+      <div class="container">
+        <div class="builder-container">
+          <!-- Sidebar -->
+          <div class="builder-sidebar">
+            <div class="builder-tabs">
+              <div class="builder-tab active" data-tab="config">
+                <i class="fas fa-store"></i>
+                <span>Configurações da Loja</span>
+              </div>
+              <div class="builder-tab" data-tab="design">
+                <i class="fas fa-palette"></i>
+                <span>Design e Cores</span>
+              </div>
+              <div class="builder-tab" data-tab="products">
+                <i class="fas fa-box-open"></i>
+                <span>Produtos</span>
+              </div>
+              <div class="builder-tab" data-tab="payment">
+                <i class="fas fa-credit-card"></i>
+                <span>Pagamentos</span>
+              </div>
+              <div class="builder-tab" data-tab="preview">
+                <i class="fas fa-eye"></i>
+                <span>Pré-visualizar</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content -->
+          <div class="builder-content">
+            <!-- Config Tab -->
+            <div class="tab-pane active" id="config">
+              <h2>Configurações da Loja</h2>
+              <p>Defina as informações básicas da sua loja virtual.</p>
+
+              <div class="form-group">
+                <label for="storeName">Nome da Loja *</label>
+                <input
+                  type="text"
+                  id="storeName"
+                  class="form-control"
+                  placeholder="Ex: Minha Loja Online"
+                  required
+                />
+                <div class="validation-error" id="storeNameError">
+                  O nome da loja é obrigatório
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="storeDescription">Descrição da Loja</label>
+                <textarea
+                  id="storeDescription"
+                  class="form-control"
+                  rows="4"
+                  placeholder="Descreva sua loja..."
+                ></textarea>
+              </div>
+
+              <div class="form-group">
+                <label for="storeLogo">Logo da Loja</label>
+                <input
+                  type="text"
+                  id="storeLogo"
+                  class="form-control"
+                  placeholder="URL da imagem ou faça upload"
+                />
+                <div class="image-upload">
+                  <div class="image-preview" id="logoPreview">
+                    <i
+                      class="fas fa-image"
+                      style="font-size: 3rem; color: #ddd"
+                    ></i>
+                  </div>
+                  <input
+                    type="file"
+                    id="logoUpload"
+                    accept="image/*"
+                    style="display: none"
+                  />
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    id="uploadLogoBtn"
+                  >
+                    Fazer Upload
+                  </button>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="storeContact">Contato *</label>
+                <input
+                  type="text"
+                  id="storeContact"
+                  class="form-control"
+                  placeholder="Email ou telefone"
+                  required
+                />
+                <div class="validation-error" id="storeContactError">
+                  Informe um contato válido
+                </div>
+              </div>
+            </div>
+
+            <!-- Design Tab -->
+            <div class="tab-pane" id="design">
+              <h2>Design e Cores</h2>
+              <p>Personalize a aparência da sua loja.</p>
+
+              <div class="form-group">
+                <label>Tema de Cores</label>
+                <div class="color-picker">
+                  <div
+                    class="color-option active"
+                    style="background-color: #2c3e50"
+                    data-color="#2c3e50"
+                  ></div>
+                  <div
+                    class="color-option"
+                    style="background-color: #27ae60"
+                    data-color="#27ae60"
+                  ></div>
+                  <div
+                    class="color-option"
+                    style="background-color: #8e44ad"
+                    data-color="#8e44ad"
+                  ></div>
+                  <div
+                    class="color-option"
+                    style="background-color: #e67e22"
+                    data-color="#e67e22"
+                  ></div>
+                  <div
+                    class="color-option"
+                    style="background-color: #c0392b"
+                    data-color="#c0392b"
+                  ></div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="fontFamily">Fonte</label>
+                <select id="fontFamily" class="form-control">
+                  <option value="Arial, sans-serif">Arial</option>
+                  <option
+                    value="'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+                  >
+                    Segoe UI
+                  </option>
+                  <option value="'Roboto', sans-serif">Roboto</option>
+                  <option value="'Open Sans', sans-serif">Open Sans</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="layoutStyle">Layout</label>
+                <select id="layoutStyle" class="form-control">
+                  <option value="classic">Clássico</option>
+                  <option value="modern">Moderno</option>
+                  <option value="minimal">Minimalista</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Products Tab -->
+            <div class="tab-pane" id="products">
+              <h2>Produtos</h2>
+              <p>Adicione e gerencie os produtos da sua loja.</p>
+
+              <button class="btn" id="addProductBtn">
+                <i class="fas fa-plus"></i> Adicionar Produto
+              </button>
+
+              <div class="product-grid" id="productGrid">
+                <!-- Products will be added here dynamically -->
+                <div class="product-card empty-state">
+                  <i
+                    class="fas fa-box-open"
+                    style="font-size: 3rem; color: #ddd; margin-bottom: 1rem"
+                  ></i>
+                  <p>Nenhum produto adicionado ainda</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Tab -->
+            <div class="tab-pane" id="payment">
+              <h2>Métodos de Pagamento</h2>
+              <p>Configure como seus clientes irão pagar.</p>
+
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" id="paymentCreditCard" checked />
+                  Cartão de Crédito
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" id="paymentBoleto" />
+                  Boleto Bancário
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label>
+                  <input type="checkbox" id="paymentPix" />
+                  PIX
+                </label>
+              </div>
+
+              <div class="form-group">
+                <label for="shippingCalculation">Cálculo de Frete</label>
+                <select id="shippingCalculation" class="form-control">
+                  <option value="fixed">Valor Fixo</option>
+                  <option value="calculated">Calculado por Região</option>
+                  <option value="free">Frete Grátis</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Preview Tab -->
+            <div class="tab-pane" id="preview">
+              <h2>Pré-visualização da Loja</h2>
+              <p>Veja como sua loja vai ficar para os clientes.</p>
+
+              <div class="preview-container">
+                <div
+                  class="preview-header"
+                  id="previewHeader"
+                  style="background-color: var(--primary); color: white"
+                >
+                  <h2 id="previewStoreName">Nome da Loja</h2>
+                  <p id="previewStoreDescription">Descrição da loja</p>
+                </div>
+
+                <div class="preview-products" id="previewProducts">
+                  <!-- Preview products will be added here -->
+                  <div class="preview-product">
+                    <div
+                      style="
+                        width: 100%;
+                        height: 150px;
+                        background: #eee;
+                        border-radius: var(--radius);
+                        margin-bottom: 0.5rem;
+                      "
+                    ></div>
+                    <h4>Produto de Exemplo</h4>
+                    <p>R$ 99,90</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Save Status -->
+    <div class="save-status" id="saveStatus">
+      <i class="fas fa-check-circle"></i> Alterações salvas com sucesso!
+    </div>
+
+    <!-- Publish Modal -->
+    <div class="modal" id="publishModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Publicar Loja Virtual</h2>
+          <button class="close-modal">&times;</button>
+        </div>
+
+        <div class="progress-bar">
+          <div class="progress" id="publishProgress" style="width: 0%"></div>
+        </div>
+
+        <div class="step active" id="step1">
+          <h3>Escolha um Domínio</h3>
+          <div class="form-group">
+            <input
+              type="text"
+              id="domainName"
+              class="form-control"
+              placeholder="nomedaloja"
+            />
+            <small>.connection17.com.br</small>
+            <div class="validation-error" id="domainError">
+              Por favor, insira um nome de domínio válido
+            </div>
+          </div>
+          <div class="step-actions">
+            <button class="btn" id="nextStep1">Próximo</button>
+          </div>
+        </div>
+
+        <div class="step" id="step2">
+          <h3>Plano de Hospedagem</h3>
+          <div class="form-group">
+            <label>
+              <input type="radio" name="plan" value="basic" checked />
+              Básico - R$ 29,90/mês
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="radio" name="plan" value="professional" />
+              Profissional - R$ 59,90/mês
+            </label>
+          </div>
+          <div class="form-group">
+            <label>
+              <input type="radio" name="plan" value="premium" />
+              Premium - R$ 99,90/mês
+            </label>
+          </div>
+          <div class="step-actions">
+            <button class="btn" id="prevStep2">Anterior</button>
+            <button class="btn" id="nextStep2">Próximo</button>
+          </div>
+        </div>
+
+        <div class="step" id="step3">
+          <h3>Finalizar Publicação</h3>
+          <p>
+            Sua loja está pronta para ser publicada! Clique em "Publicar" para
+            tornar sua loja online.
+          </p>
+          <div class="step-actions">
+            <button class="btn" id="prevStep3">Anterior</button>
+            <button class="btn btn-success" id="publishStore">
+              Publicar Loja
+            </button>
+          </div>
+        </div>
+
+        <div class="step" id="step4">
+          <div class="publish-success">
+            <i class="fas fa-check-circle"></i>
+            <h3>Loja Publicada com Sucesso!</h3>
+            <p>Sua loja virtual está online e pronta para receber pedidos.</p>
+            <p id="storeUrl"></p>
+            <button class="btn" id="viewStore">Ver Minha Loja</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="modal" id="productModal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 id="productModalTitle">Adicionar Produto</h2>
+          <button class="close-modal">&times;</button>
+        </div>
+
+        <div class="form-group">
+          <label for="productName">Nome do Produto *</label>
+          <input
+            type="text"
+            id="productName"
+            class="form-control"
+            placeholder="Nome do produto"
+            required
+          />
+          <div class="validation-error" id="productNameError">
+            O nome do produto é obrigatório
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="productDescription">Descrição</label>
+          <textarea
+            id="productDescription"
+            class="form-control"
+            rows="3"
+            placeholder="Descrição do produto"
+          ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="productPrice">Preço (R$) *</label>
+          <input
+            type="number"
+            id="productPrice"
+            class="form-control"
+            placeholder="0,00"
+            step="0.01"
+            min="0"
+            required
+          />
+          <div class="validation-error" id="productPriceError">
+            Informe um preço válido
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="productImage">Imagem do Produto</label>
+          <input
+            type="text"
+            id="productImage"
+            class="form-control"
+            placeholder="URL da imagem"
+          />
+          <div class="image-upload">
+            <div class="image-preview" id="productImagePreview">
+              <i class="fas fa-image" style="font-size: 3rem; color: #ddd"></i>
+            </div>
+            <input
+              type="file"
+              id="productImageUpload"
+              accept="image/*"
+              style="display: none"
+            />
+            <button
+              type="button"
+              class="btn btn-secondary"
+              id="uploadProductImageBtn"
+            >
+              Fazer Upload
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="productCategory">Categoria</label>
+          <input
+            type="text"
+            id="productCategory"
+            class="form-control"
+            placeholder="Categoria do produto"
+          />
+        </div>
+
+        <div class="form-group">
+          <button class="btn btn-success" id="saveProduct">
+            Salvar Produto
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="footer-content">
+          <div class="footer-column">
+            <h3>Connection17</h3>
+            <p>
+              Criando lojas virtuais incríveis para empreendedores digitais.
+            </p>
+          </div>
+          <div class="footer-column">
+            <h3>Contato</h3>
+            <a href="mailto:loja.connection17@gmail.com"
+              >loja.connection17@gmail.com</a
+            >
+            <a href="https://wa.me/5548966524566" target="_blank"
+              >(48) 9665-24566</a
+            >
+          </div>
+          <div class="footer-column">
+            <h3>Links Rápidos</h3>
+            <a href="#builder">Criar Loja</a>
+            <a href="#preview">Pré-visualizar</a>
+            <a href="#publish">Publicar</a>
+          </div>
+        </div>
+        <div class="copyright">
+          <p>&copy; 2025 Connection17. Todos os direitos reservados.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Store data
+      let storeData = {
+        name: "Minha Loja",
+        description: "Descrição da minha loja",
+        logo: "",
+        contact: "",
+        themeColor: "#2c3e50",
+        fontFamily: "Arial, sans-serif",
+        layout: "classic",
+        products: [],
+        payments: {
+          creditCard: true,
+          boleto: false,
+          pix: false,
+        },
+        shipping: "fixed",
+      };
+
+      // DOM Elements
+      const builderTabs = document.querySelectorAll(".builder-tab");
+      const tabPanes = document.querySelectorAll(".tab-pane");
+      const publishBtn = document.getElementById("publishBtn");
+      const publishModal = document.getElementById("publishModal");
+      const closeModals = document.querySelectorAll(".close-modal");
+      const addProductBtn = document.getElementById("addProductBtn");
+      const productModal = document.getElementById("productModal");
+      const productGrid = document.getElementById("productGrid");
+      const saveProductBtn = document.getElementById("saveProduct");
+      const colorOptions = document.querySelectorAll(".color-option");
+      const previewHeader = document.getElementById("previewHeader");
+      const previewStoreName = document.getElementById("previewStoreName");
+      const previewStoreDescription = document.getElementById(
+        "previewStoreDescription"
+      );
+      const previewProducts = document.getElementById("previewProducts");
+      const saveStatus = document.getElementById("saveStatus");
+
+      // Publish modal steps
+      const steps = document.querySelectorAll(".step");
+      const nextStep1 = document.getElementById("nextStep1");
+      const prevStep2 = document.getElementById("prevStep2");
+      const nextStep2 = document.getElementById("nextStep2");
+      const prevStep3 = document.getElementById("prevStep3");
+      const publishStoreBtn = document.getElementById("publishStore");
+      const viewStoreBtn = document.getElementById("viewStore");
+      const publishProgress = document.getElementById("publishProgress");
+      const storeUrl = document.getElementById("storeUrl");
+
+      // Form inputs
+      const storeNameInput = document.getElementById("storeName");
+      const storeDescriptionInput = document.getElementById("storeDescription");
+      const storeLogoInput = document.getElementById("storeLogo");
+      const storeContactInput = document.getElementById("storeContact");
+      const fontFamilySelect = document.getElementById("fontFamily");
+      const layoutStyleSelect = document.getElementById("layoutStyle");
+      const paymentCreditCard = document.getElementById("paymentCreditCard");
+      const paymentBoleto = document.getElementById("paymentBoleto");
+      const paymentPix = document.getElementById("paymentPix");
+      const shippingCalculation = document.getElementById(
+        "shippingCalculation"
+      );
+
+      // Product form inputs
+      const productNameInput = document.getElementById("productName");
+      const productDescriptionInput =
+        document.getElementById("productDescription");
+      const productPriceInput = document.getElementById("productPrice");
+      const productImageInput = document.getElementById("productImage");
+      const productCategoryInput = document.getElementById("productCategory");
+
+      // Validation elements
+      const storeNameError = document.getElementById("storeNameError");
+      const storeContactError = document.getElementById("storeContactError");
+      const domainError = document.getElementById("domainError");
+      const productNameError = document.getElementById("productNameError");
+      const productPriceError = document.getElementById("productPriceError");
+
+      // Image upload elements
+      const uploadLogoBtn = document.getElementById("uploadLogoBtn");
+      const logoUpload = document.getElementById("logoUpload");
+      const logoPreview = document.getElementById("logoPreview");
+      const uploadProductImageBtn = document.getElementById(
+        "uploadProductImageBtn"
+      );
+      const productImageUpload = document.getElementById("productImageUpload");
+      const productImagePreview = document.getElementById(
+        "productImagePreview"
+      );
+
+      // Current editing product index
+      let editingProductIndex = -1;
+      let autoSaveTimeout;
+
+      // Initialize the builder
+      function initBuilder() {
+        // Load data from localStorage if available
+        const savedData = localStorage.getItem("connection17_storeData");
+        if (savedData) {
+          storeData = JSON.parse(savedData);
+        }
+
+        // Set initial values
+        storeNameInput.value = storeData.name;
+        storeDescriptionInput.value = storeData.description;
+        storeLogoInput.value = storeData.logo;
+        storeContactInput.value = storeData.contact;
+        fontFamilySelect.value = storeData.fontFamily;
+        layoutStyleSelect.value = storeData.layout;
+        paymentCreditCard.checked = storeData.payments.creditCard;
+        paymentBoleto.checked = storeData.payments.boleto;
+        paymentPix.checked = storeData.payments.pix;
+        shippingCalculation.value = storeData.shipping;
+
+        // Update color picker
+        colorOptions.forEach((option) => {
+          if (option.getAttribute("data-color") === storeData.themeColor) {
+            option.classList.add("active");
+          } else {
+            option.classList.remove("active");
+          }
+        });
+
+        // Update logo preview
+        if (storeData.logo) {
+          logoPreview.innerHTML = `<img src="${storeData.logo}" alt="Logo">`;
+        }
+
+        renderProducts();
+        updatePreview();
+
+        // Enable/disable publish button based on validation
+        updatePublishButton();
+      }
+
+      // Save data to localStorage
+      function saveData() {
+        localStorage.setItem(
+          "connection17_storeData",
+          JSON.stringify(storeData)
+        );
+
+        // Show save status
+        saveStatus.classList.add("show");
+        setTimeout(() => {
+          saveStatus.classList.remove("show");
+        }, 3000);
+      }
+
+      // Auto-save when data changes
+      function autoSave() {
+        clearTimeout(autoSaveTimeout);
+        autoSaveTimeout = setTimeout(saveData, 1000);
+      }
+
+      // Tab switching
+      builderTabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          const tabId = tab.getAttribute("data-tab");
+
+          // Update active tab
+          builderTabs.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+
+          // Show corresponding pane
+          tabPanes.forEach((pane) => {
+            pane.classList.remove("active");
+            if (pane.id === tabId) {
+              pane.classList.add("active");
+            }
+          });
+        });
+      });
+
+      // Store configuration changes
+      storeNameInput.addEventListener("input", () => {
+        storeData.name = storeNameInput.value;
+        validateField(
+          storeNameInput,
+          storeNameError,
+          storeData.name.trim() !== ""
+        );
+        updatePreview();
+        autoSave();
+        updatePublishButton();
+      });
+
+      storeDescriptionInput.addEventListener("input", () => {
+        storeData.description = storeDescriptionInput.value;
+        updatePreview();
+        autoSave();
+      });
+
+      storeLogoInput.addEventListener("input", () => {
+        storeData.logo = storeLogoInput.value;
+        if (storeData.logo) {
+          logoPreview.innerHTML = `<img src="${storeData.logo}" alt="Logo">`;
+        } else {
+          logoPreview.innerHTML =
+            '<i class="fas fa-image" style="font-size: 3rem; color: #ddd;"></i>';
+        }
+        autoSave();
+      });
+
+      storeContactInput.addEventListener("input", () => {
+        storeData.contact = storeContactInput.value;
+        const isValid =
+          storeData.contact.trim() !== "" &&
+          (storeData.contact.includes("@") ||
+            /^\d+$/.test(storeData.contact.replace(/\D/g, "")));
+        validateField(storeContactInput, storeContactError, isValid);
+        autoSave();
+        updatePublishButton();
+      });
+
+      fontFamilySelect.addEventListener("change", () => {
+        storeData.fontFamily = fontFamilySelect.value;
+        autoSave();
+      });
+
+      layoutStyleSelect.addEventListener("change", () => {
+        storeData.layout = layoutStyleSelect.value;
+        autoSave();
+      });
+
+      // Color selection
+      colorOptions.forEach((option) => {
+        option.addEventListener("click", () => {
+          colorOptions.forEach((o) => o.classList.remove("active"));
+          option.classList.add("active");
+          storeData.themeColor = option.getAttribute("data-color");
+          updatePreview();
+          autoSave();
+        });
+      });
+
+      // Payment methods
+      paymentCreditCard.addEventListener("change", () => {
+        storeData.payments.creditCard = paymentCreditCard.checked;
+        autoSave();
+      });
+
+      paymentBoleto.addEventListener("change", () => {
+        storeData.payments.boleto = paymentBoleto.checked;
+        autoSave();
+      });
+
+      paymentPix.addEventListener("change", () => {
+        storeData.payments.pix = paymentPix.checked;
+        autoSave();
+      });
+
+      shippingCalculation.addEventListener("change", () => {
+        storeData.shipping = shippingCalculation.value;
+        autoSave();
+      });
+
+      // Product management
+      addProductBtn.addEventListener("click", () => {
+        editingProductIndex = -1;
+        document.getElementById("productModalTitle").textContent =
+          "Adicionar Produto";
+        productNameInput.value = "";
+        productDescriptionInput.value = "";
+        productPriceInput.value = "";
+        productImageInput.value = "";
+        productCategoryInput.value = "";
+        productImagePreview.innerHTML =
+          '<i class="fas fa-image" style="font-size: 3rem; color: #ddd;"></i>';
+
+        // Reset validation
+        productNameInput.classList.remove("error");
+        productNameError.classList.remove("show");
+        productPriceInput.classList.remove("error");
+        productPriceError.classList.remove("show");
+
+        productModal.classList.add("active");
+      });
+
+      saveProductBtn.addEventListener("click", () => {
+        // Validate product form
+        const nameValid = productNameInput.value.trim() !== "";
+        const priceValid =
+          productPriceInput.value && parseFloat(productPriceInput.value) > 0;
+
+        validateField(productNameInput, productNameError, nameValid);
+        validateField(productPriceInput, productPriceError, priceValid);
+
+        if (!nameValid || !priceValid) {
+          return;
+        }
+
+        const product = {
+          name: productNameInput.value,
+          description: productDescriptionInput.value,
+          price: parseFloat(productPriceInput.value) || 0,
+          image: productImageInput.value,
+          category: productCategoryInput.value,
+          id:
+            editingProductIndex === -1
+              ? Date.now()
+              : storeData.products[editingProductIndex].id,
+        };
+
+        if (editingProductIndex === -1) {
+          storeData.products.push(product);
+        } else {
+          storeData.products[editingProductIndex] = product;
+        }
+
+        renderProducts();
+        updatePreview();
+        productModal.classList.remove("active");
+        autoSave();
+        updatePublishButton();
+      });
+
+      function renderProducts() {
+        productGrid.innerHTML = "";
+
+        if (storeData.products.length === 0) {
+          productGrid.innerHTML = `
+                    <div class="product-card empty-state">
+                        <i class="fas fa-box-open" style="font-size: 3rem; color: #ddd; margin-bottom: 1rem;"></i>
+                        <p>Nenhum produto adicionado ainda</p>
+                    </div>
+                `;
+          return;
+        }
+
+        storeData.products.forEach((product, index) => {
+          const productCard = document.createElement("div");
+          productCard.className = "product-card";
+          productCard.innerHTML = `
+                    ${
+                      product.image
+                        ? `<img src="${product.image}" alt="${product.name}">`
+                        : `<div style="width: 100%; height: 150px; background: #eee; border-radius: var(--radius); margin-bottom: 0.5rem;"></div>`
+                    }
+                    <h4>${product.name}</h4>
+                    <p>R$ ${product.price.toFixed(2)}</p>
+                    <div class="product-actions">
+                        <button class="action-btn edit-product" data-index="${index}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="action-btn delete-product" data-index="${index}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+          productGrid.appendChild(productCard);
+        });
+
+        // Add event listeners for edit and delete buttons
+        document.querySelectorAll(".edit-product").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const index = parseInt(e.currentTarget.getAttribute("data-index"));
+            editProduct(index);
+          });
+        });
+
+        document.querySelectorAll(".delete-product").forEach((btn) => {
+          btn.addEventListener("click", (e) => {
+            const index = parseInt(e.currentTarget.getAttribute("data-index"));
+            deleteProduct(index);
+          });
+        });
+      }
+
+      function editProduct(index) {
+        const product = storeData.products[index];
+        editingProductIndex = index;
+
+        document.getElementById("productModalTitle").textContent =
+          "Editar Produto";
+        productNameInput.value = product.name;
+        productDescriptionInput.value = product.description;
+        productPriceInput.value = product.price;
+        productImageInput.value = product.image;
+        productCategoryInput.value = product.category;
+
+        if (product.image) {
+          productImagePreview.innerHTML = `<img src="${product.image}" alt="${product.name}">`;
+        } else {
+          productImagePreview.innerHTML =
+            '<i class="fas fa-image" style="font-size: 3rem; color: #ddd;"></i>';
+        }
+
+        productModal.classList.add("active");
+      }
+
+      function deleteProduct(index) {
+        if (confirm("Tem certeza que deseja excluir este produto?")) {
+          storeData.products.splice(index, 1);
+          renderProducts();
+          updatePreview();
+          autoSave();
+          updatePublishButton();
+        }
+      }
+
+      // Update preview
+      function updatePreview() {
+        previewStoreName.textContent = storeData.name || "Nome da Loja";
+        previewStoreDescription.textContent =
+          storeData.description || "Descrição da loja";
+        previewHeader.style.backgroundColor = storeData.themeColor;
+
+        // Update products in preview
+        previewProducts.innerHTML = "";
+
+        if (storeData.products.length === 0) {
+          previewProducts.innerHTML = `
+                    <div class="preview-product">
+                        <div style="width: 100%; height: 150px; background: #eee; border-radius: var(--radius); margin-bottom: 0.5rem;"></div>
+                        <h4>Produto de Exemplo</h4>
+                        <p>R$ 99,90</p>
+                    </div>
+                `;
+        } else {
+          storeData.products.forEach((product) => {
+            const previewProduct = document.createElement("div");
+            previewProduct.className = "preview-product";
+            previewProduct.innerHTML = `
+                        ${
+                          product.image
+                            ? `<img src="${product.image}" alt="${product.name}">`
+                            : `<div style="width: 100%; height: 150px; background: #eee; border-radius: var(--radius); margin-bottom: 0.5rem;"></div>`
+                        }
+                        <h4>${product.name}</h4>
+                        <p>R$ ${product.price.toFixed(2)}</p>
+                    `;
+            previewProducts.appendChild(previewProduct);
+          });
+        }
+      }
+
+      // Publish modal
+      publishBtn.addEventListener("click", () => {
+        if (!validateForm()) {
+          // Show first tab with errors
+          builderTabs.forEach((t) => t.classList.remove("active"));
+          document.querySelector('[data-tab="config"]').classList.add("active");
+
+          tabPanes.forEach((pane) => {
+            pane.classList.remove("active");
+            if (pane.id === "config") {
+              pane.classList.add("active");
+            }
+          });
+
+          // Scroll to builder section
+          document
+            .getElementById("builder")
+            .scrollIntoView({ behavior: "smooth" });
+          return;
+        }
+
+        publishModal.classList.add("active");
+        goToStep(1);
+      });
+
+      closeModals.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          publishModal.classList.remove("active");
+          productModal.classList.remove("active");
+        });
+      });
+
+      // Step navigation
+      nextStep1.addEventListener("click", () => {
+        const domainName = document.getElementById("domainName").value;
+        if (!domainName || domainName.trim() === "") {
+          domainError.classList.add("show");
+          return;
+        }
+        domainError.classList.remove("show");
+        goToStep(2);
+      });
+
+      prevStep2.addEventListener("click", () => {
+        goToStep(1);
+      });
+
+      nextStep2.addEventListener("click", () => {
+        goToStep(3);
+      });
+
+      prevStep3.addEventListener("click", () => {
+        goToStep(2);
+      });
+
+      publishStoreBtn.addEventListener("click", () => {
+        // Simulate publishing process
+        publishProgress.style.width = "0%";
+        let progress = 0;
+        const interval = setInterval(() => {
+          progress += 5;
+          publishProgress.style.width = `${progress}%`;
+
+          if (progress >= 100) {
+            clearInterval(interval);
+            goToStep(4);
+
+            const domainName = document.getElementById("domainName").value;
+            storeUrl.textContent = `https://${domainName}.connection17.com.br`;
+
+            // Save published store data
+            localStorage.setItem(
+              "connection17_publishedStore",
+              JSON.stringify(storeData)
+            );
+          }
+        }, 100);
+      });
+
+      viewStoreBtn.addEventListener("click", () => {
+        const domainName = document.getElementById("domainName").value;
+        window.open(`https://${domainName}.connection17.com.br`, "_blank");
+      });
+
+      function goToStep(stepNumber) {
+        steps.forEach((step) => step.classList.remove("active"));
+        document.getElementById(`step${stepNumber}`).classList.add("active");
+
+        // Update progress bar
+        const progress = (stepNumber - 1) * 33.33;
+        publishProgress.style.width = `${progress}%`;
+      }
+
+      // Image upload functionality
+      uploadLogoBtn.addEventListener("click", () => {
+        logoUpload.click();
+      });
+
+      logoUpload.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            storeData.logo = event.target.result;
+            storeLogoInput.value = storeData.logo;
+            logoPreview.innerHTML = `<img src="${storeData.logo}" alt="Logo">`;
+            autoSave();
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      uploadProductImageBtn.addEventListener("click", () => {
+        productImageUpload.click();
+      });
+
+      productImageUpload.addEventListener("change", (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            productImageInput.value = event.target.result;
+            productImagePreview.innerHTML = `<img src="${event.target.result}" alt="Produto">`;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+
+      // Form validation
+      function validateField(input, errorElement, isValid) {
+        if (isValid) {
+          input.classList.remove("error");
+          errorElement.classList.remove("show");
+        } else {
+          input.classList.add("error");
+          errorElement.classList.add("show");
+        }
+      }
+
+      function validateForm() {
+        const nameValid = storeData.name.trim() !== "";
+        const contactValid =
+          storeData.contact.trim() !== "" &&
+          (storeData.contact.includes("@") ||
+            /^\d+$/.test(storeData.contact.replace(/\D/g, "")));
+        const productsValid = storeData.products.length > 0;
+
+        validateField(storeNameInput, storeNameError, nameValid);
+        validateField(storeContactInput, storeContactError, contactValid);
+
+        return nameValid && contactValid && productsValid;
+      }
+
+      function updatePublishButton() {
+        const isValid = validateForm();
+        publishBtn.disabled = !isValid;
+
+        if (isValid) {
+          publishBtn.classList.remove("btn-secondary");
+          publishBtn.classList.add("btn-success");
+        } else {
+          publishBtn.classList.remove("btn-success");
+          publishBtn.classList.add("btn-secondary");
+        }
+      }
+
+      // Initialize the application
+      initBuilder();
+    </script>
+  </body>
+</html>
